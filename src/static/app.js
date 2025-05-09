@@ -128,3 +128,5 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 });
+
+// This is a minor change to trigger a new commit
