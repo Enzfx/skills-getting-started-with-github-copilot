@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Criar lista de participantes
+        // Create participants list
         const participantsList = details.participants.map(participant => `<li>${participant}</li>`).join("");
 
         activityCard.innerHTML = `
