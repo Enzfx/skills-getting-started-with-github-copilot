@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
+        option.dataset.participants = JSON.stringify(details.participants);
         activitySelect.appendChild(option);
       });
     } catch (error) {
@@ -49,6 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const activity = document.getElementById("activity").value;
 
     try {
+      const selectedActivity = Array.from(activitySelect.options).find(
+        (option) => option.value === activity
+      );
+
+      if (selectedActivity && selectedActivity.dataset.participants) {
+        const participants = JSON.parse(selectedActivity.dataset.participants);
+        if (participants.includes(email)) {
+          messageDiv.textContent = "You are already signed up for this activity.";
+          messageDiv.className = "error";
+          messageDiv.classList.remove("hidden");
+          setTimeout(() => {
+            messageDiv.classList.add("hidden");
+          }, 5000);
+          return;
+        }
+      }
+
       const response = await fetch(
         `/activities/${encodeURIComponent(activity)}/signup?email=${encodeURIComponent(email)}`,
         {
@@ -83,4 +101,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize app
   fetchActivities();
+});
+
+// Seleciona o botão de alternância
+const themeToggle = document.getElementById('theme-toggle');
+
+// Adiciona um evento de clique ao botão
+themeToggle.addEventListener('click', () => {
+    // Alterna a classe 'dark-mode' no body
+    document.body.classList.toggle('dark-mode');
+
+    // Salva a preferência no localStorage
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+});
+
+// Aplica o tema salvo ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('darkMode');
+    if (savedTheme === 'enabled') {
+        document.body.classList.add('dark-mode');
+    }
 });

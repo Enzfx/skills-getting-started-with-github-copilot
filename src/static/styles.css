@@ -15,6 +15,18 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Estilo padrão (modo claro) */
+body {
+    background-color: white;
+    color: black;
+}
+
+/* Estilo para o modo escuro */
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
 header {
   text-align: center;
   padding: 20px 0;
@@ -141,4 +153,13 @@ footer {
   margin-top: 30px;
   padding: 20px;
   color: #666;
+}
+
+/* Estilo do botão */
+#theme-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
